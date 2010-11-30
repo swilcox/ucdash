@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block page_title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <p>
+      This is a test...
+
+
+
+      {% for j in jobs %}
+         {{ j.name }}
+
+      {% endfor %}
+
+    </p>
+    {% for jg in job_groups %}
+    <div class="grid_16">
+        <div class="box">
+              <h2><a href="#" id="toggle-{{ jg.name }}-details">{{ jg.name }}</a></h2>
+              <div class="block" id="{{ jg.name }}-details">
+                  <div class="job_description">{{ jg.description }}</div>
+
+                  <div class="job_listing">job status goes here...</div>
+
+
+              </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

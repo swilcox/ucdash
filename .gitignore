@@ -5,3 +5,4 @@ dev.db
 .pydevproject
 *~
 .idea
+local_settings.py
