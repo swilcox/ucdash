@@ -4,7 +4,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-      (r'^$', 'tasks.views.dashboard'),
+      (r'^$', 'jobs.views.dashboard'),
     # Example:
     # (r'^ucdash/', include('ucdash.foo.urls')),
 
