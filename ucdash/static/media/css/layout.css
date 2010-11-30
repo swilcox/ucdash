@@ -4,8 +4,8 @@ Grey Box Method - Layout CSS
 ----------------------------------------------- */
 
 body {
-	background: #fff;
-	border-top: 2px solid #000;
+	background: #eee;
+	border-top: 5px solid #000;
 	color: #333;
 	font-size: 11px;
 	padding: 0 0 40px;
@@ -41,25 +41,19 @@ h6 {font-size:1em; text-transform:uppercase;}
 
 
 h1 a {
-	font-weight:bold;
+	font-weight:normal;
 }
 
 
 /* branding
 ----------------------------------------------- */
-#branding {
-    background-image: url("../img/acu_camo_wide.png");
-}
-
-#branding-h1 {
-    font-family:Interstate, Arial, sans-serif;
+h1#branding {
 	font-weight:normal;
 	font-size:3em;
 	text-align:left;
-	padding:.2em 4%;
+	background:#aaa;
+	padding:.7em 1em;
 	margin-bottom:0;
-    font-variant:small-caps;
-    text-shadow: 2px 2px 3px #444;
 }
 
 
@@ -67,59 +61,37 @@ h1 a {
 ----------------------------------------------- */
 h2#page-heading {
 	font-weight:normal;
-    padding: .5em .5em .5em 0em;
-    margin: 0 0 10px;
-    border-bottom:1px solid #ccc;
+	padding:.5em;
+	margin:0 0 10px 0;
+	border-bottom:1px solid #ccc;
 }
 
 
 /* boxes
 ----------------------------------------------- */
 .box {
-	background:#cdc1b3;
+	background:#ddd;
 	margin-bottom:20px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 1px;
-
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-
+	padding:10px 10px 1px 10px;
 }
 .box h2 {
 	font-size:1em;
 	font-weight:normal;
 	text-transform:uppercase;
 	color:#fff;
-	background:#62655a;
+	background:#333;
 	margin:-10px -10px 0 -10px;
 	padding:6px 12px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    -moz-border-radius-topright: 10px;
-    -moz-border-radius-topleft: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px;
-
 }
 .box h2 a,
 .box h2 a.visible {
 	color:#fff;
-	background:#62655a url("../img/switch_minus.gif") 97% 50% no-repeat;
+	background:#333 url("../img/switch_minus.gif") 97% 50% no-repeat;
 	display:block;
 	padding:6px 12px;
 	margin:-6px -12px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    -moz-border-radius-topright: 10px;
-    -moz-border-radius-topleft: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px;
-
+	border:none;
 }
-
 .grid_4 .box h2 a {
 	background-position: 97% 50%;
 }
@@ -136,7 +108,7 @@ h2#page-heading {
 	background-image: url("../img/switch_plus.gif");
 }
 .box h2 a:hover {
-	background-color:#62655a;
+	background-color:#111;
 }
 .block {
 	padding-top:10px;
@@ -284,8 +256,8 @@ th, td {
 	text-align:left;
 }
 thead th {
-	border-bottom:2px solid #89A;
-	background:#909FAF;
+	border-bottom:2px solid #888;
+	background:#bbb;
 	padding:.4em 1em .2em;
 }
 thead th.table-head {
@@ -293,18 +265,14 @@ thead th.table-head {
 	font-weight:normal;
 	text-transform:uppercase;
 	color:#fff;
-	background:#567;
-	border:1px solid #567;
+	background:#555;
+	border:1px solid #555;
 }
 tbody th,
 tbody td {
-	border-top:1px solid #A0AFBF;
-	border-bottom:1px solid #A0AFBF;
-	background:#e0e6f0;
-}
-
-tbody th {
-    background: #d0d6e0;
+	border-top:1px solid #bbb;
+	border-bottom:1px solid #bbb;
+	background:#eee;
 }
 tbody tr.odd th,
 tbody tr.odd td {
@@ -312,12 +280,12 @@ tbody tr.odd td {
 }
 tfoot th,
 tfoot td {
-	border-top:2px solid #678;
+	border-top:2px solid #666;
 	background:#eee;
 }
 tfoot tr.total th,
 tfoot tr.total td {
-	border-top:6px double #678;
+	border-top:6px double #666;
 }
 tfoot tr.total th {
 	text-transform:uppercase;
@@ -334,17 +302,17 @@ form {
 	overflow:hidden;
 }
 fieldset {
-	border:1px solid #B0BFCF;
+	border:1px solid #bbb;
 	padding:10px;
 	position:relative;
-	background:#A0AFBF;
+	background:#e9e9e9;
 	margin-bottom:10px;
 }
 legend {
 	font-size:1.1em;
 	padding:.4em .8em;
 	background:#fff;
-	border:1px solid #b0BFCF;
+	border:1px solid #bbb;
 }
 fieldset.login p {
 	margin-bottom:1em;
@@ -449,18 +417,11 @@ input.search.button {
 
 /* site information
 ----------------------------------------------- */
-#site_info .sitebox {
+#site_info .box {
 	color:#ccc;
-	background-image: url("../img/acu_camo_wide.png");
-	margin-bottom:0px;
-    padding-top: 10px;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-bottom: 5px;
-    border-bottom: 3px solid #000;
-    border-top: 1px solid #000;
+	background:#666;
+	margin-bottom:10px;
 }
-
 #site_info a {
 	color:#fff;
 }
