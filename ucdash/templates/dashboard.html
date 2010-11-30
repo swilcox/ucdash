@@ -1,33 +1,27 @@
 {% extends "base.html" %}
 {% block page_title %}
-    Dashboard
+    Overview
 {% endblock %}
 
 {% block content %}
-    <p>
-      This is a test...
-
-
-
-      {% for j in jobs %}
-         {{ j.name }}
-
-      {% endfor %}
-
-    </p>
     {% for jg in job_groups %}
-    <div class="grid_16">
+    <div class="grid_8">
         <div class="box">
-              <h2><a href="#" id="toggle-{{ jg.name }}-details">{{ jg.name }}</a></h2>
+              <h2><a href="#" id="toggle-{{ jg.slug }}-details">{{ jg.name }}</a></h2>
               <div class="block" id="{{ jg.name }}-details">
-                  <div class="job_description">{{ jg.description }}</div>
-
-                  <div class="job_listing">job status goes here...</div>
-
-
+                  <div class="job_group_description">{{ jg.description }}</div>
+                  <table class="job_listings">
+                  <thead><tr><th>name</th><th>date/time</th><th>status</th></tr></thead>
+                  <tbody>
+                  {%  for j in jg.jobs.all %}
+                      <tr><td>{{ j.name }}</td><td>{{ j.notifications.all.0.at }}</td><td>{{ j.notifications.all.0.result_code }}</td></tr>
+                  {% endfor %}
+                  </tbody>
+                  </table>
               </div>
         </div>
     </div>
+    {% cycle '' '<div class="clear"></div>' %}
     {% endfor %}
 
 {% endblock %}

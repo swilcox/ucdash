@@ -5,6 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
       (r'^$', 'jobs.views.dashboard'),
+      (r'^api/', include('ucdash.api.urls')),
     # Example:
     # (r'^ucdash/', include('ucdash.foo.urls')),
 

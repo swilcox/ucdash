@@ -13,29 +13,28 @@ class Job(models.Model):
 class JobGroup(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField()
-    jobs = models.ManyToManyRel(Job)
+    jobs = models.ManyToManyField(Job, related_name='groups')
 
     def __unicode__(self):
         return self.name
 
 
 class Notification(models.Model):
-    result_code = models.IntegerField()
-    job = models.ForeignKey(Job)
+    result = models.IntegerField()
+    job = models.ForeignKey(Job,related_name='notifications')
     at = models.DateTimeField(auto_now_add=True,null=True,blank=True,db_index=True)
     start_time = models.DateTimeField(null=True,blank=True)
     end_time = models.DateTimeField(null=True,blank=True)
-    run_time = models.IntegerField(null=True,blank=True)
-    output_text = models.TextField(blank=True)
-    errout_text = models.TextField(blank=True)
+    duration = models.IntegerField(null=True,blank=True)
+    log = models.TextField(blank=True)
 
     def __unicode__(self):
-        return 'result: %s for job: %s' % (str(self.result_code), str(self.job))
+        return 'result: %s for job: %s' % (str(self.result), str(self.job))
 
 
 class NotificationExtra(models.Model):
-    notification = models.ForeignKey(Notification)
-    field_name = models.CharField(max_length=50)
+    notification = models.ForeignKey(Notification,related_name='extra_info')
+    field_name = models.CharField(max_length=50,db_index=True)
     field_value = models.TextField()
 
     def __unicode__(self):
