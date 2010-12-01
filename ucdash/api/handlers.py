@@ -7,10 +7,12 @@ class JobNotificationHandler(BaseHandler):
     allowed_methods = ('POST',)
     model = Notification
 
-    @require_extended
+    
     def create(self, request, job_slug=None):
+        print request
         if request.content_type and job_slug:
             print job_slug
+            print request.data
             try:
                 j = Job.objects.get(slug=job_slug)
             except:
