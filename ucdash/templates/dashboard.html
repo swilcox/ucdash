@@ -11,10 +11,10 @@
               <div class="block" id="{{ jg.name }}-details">
                   <div class="job_group_description">{{ jg.description }}</div>
                   <table class="job_listings">
-                  <thead><tr><th>name</th><th>date/time</th><th>status</th></tr></thead>
+                  <thead><tr><th>job</th><th>date/time</th><th>status</th></tr></thead>
                   <tbody>
                   {%  for j in jg.jobs.all %}
-                      <tr><td>{{ j.name }}</td><td>{{ j.notifications.all.0.at }}</td><td>{{ j.notifications.all.0.result_code }}</td></tr>
+                      <tr><td>{{ j.name }}</td><td>{{ j.notifications.all.0.at }}</td><td>{{ j.notifications.all.0.result }}</td></tr>
                   {% endfor %}
                   </tbody>
                   </table>

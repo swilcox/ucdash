@@ -23,8 +23,6 @@ class Notification(models.Model):
     result = models.IntegerField()
     job = models.ForeignKey(Job,related_name='notifications')
     at = models.DateTimeField(auto_now_add=True,null=True,blank=True,db_index=True)
-    start_time = models.DateTimeField(null=True,blank=True)
-    end_time = models.DateTimeField(null=True,blank=True)
     duration = models.IntegerField(null=True,blank=True)
     log = models.TextField(blank=True)
 
