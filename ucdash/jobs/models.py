@@ -6,6 +6,10 @@ class Job(models.Model):
     slug = models.SlugField()
     description = models.TextField()
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('jobs.views.job', (self.slug,), {})
+
     def __unicode__(self):
         return str(self.name)
 

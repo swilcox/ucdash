@@ -9,7 +9,7 @@ ul.nav,
 ul.nav * { margin:0;padding:0;}
 ul.nav {
   position:relative;
-  background:#666;
+  background: #666;
   max-width:100%;
   height:2.5em;
   }

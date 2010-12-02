@@ -14,7 +14,7 @@
                   <thead><tr><th>job</th><th>date/time</th><th>status</th></tr></thead>
                   <tbody>
                   {%  for j in jg.jobs.all %}
-                      <tr><td>{{ j.name }}</td><td>{{ j.notifications.all.0.at }}</td><td>{{ j.notifications.all.0.result }}</td></tr>
+                      <tr><td><a href="{{ j.get_absolute_url }}">{{ j.name }}</a></td><td>{{ j.notifications.all.0.at }}</td><td>{{ j.notifications.all.0.result }}</td></tr>
                   {% endfor %}
                   </tbody>
                   </table>

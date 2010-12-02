@@ -13,6 +13,7 @@ class UCTask(object):
         self.command = command
         self.jobname = jobname
         self.config = None
+        self.results = None
         if 'config' in kwargs:
             self.config = kwargs['config']
         if 'verbose' in kwargs and kwargs['verbose'] == True:
@@ -20,34 +21,44 @@ class UCTask(object):
         else:
             self.verbose = False
         if 'shell' in kwargs and kwargs['shell'] == True:
-            self.p = subprocess.Popen(self.command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            self.p = subprocess.Popen(self.command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         else:
             self.p = subprocess.Popen(shlex.split(command))
 
     def execute(self):
         (out, err) = self.p.communicate()
         self.endtime = datetime.now()
+        duration_timedelta = self.endtime - self.starttime
+        duration_ms = (duration_timedelta.microseconds / 1000) + (duration_timedelta.seconds * 1000)
+        self.results = {'jobname':self.jobname,'result': self.p.returncode, 'log': out, 'duration': duration_ms}
         if self.verbose:
             print "job name: " + self.jobname
             print "return code: " + str(self.p.returncode)
-            print "output: " + out
-            print "errout: " + err
-            print "json: " + json.dumps({'jobname':self.jobname,'returncode': self.p.returncode,
-                                         'output':out, 'errout':err,
-                                         'starttime':str(self.starttime), 'endtime':str(self.endtime)})
+            print "output: " + str(out)
+            print "errout: " + str(err)
+            print "json: " + str(self.results)
 
     def _load_config(self):
-        if self.config is None:
-            self.config = ''
+        if self.config is None or self.config=='':
+            self.config = '.ucdc/ucdc.config'
+            #self.config = '/etc/ucdc/ucdc.config'
+        
 
     def report(self):
-        self.report_url = 'http://localhost:8000/job/_%s_/post_result/' % self.jobname
-        httplib.HTTPConnection
+        conn = httplib.HTTPConnection("localhost",port=8000)
+        conn.request("POST","/api/notify/%s/" % self.jobname,body=json.dumps(self.results),headers={'Content-Type':'application/json'})
+        response = conn.getresponse()
+        if self.verbose:
+            print response
 
 
 def usage():
-    print "usage: ?"
-
+    print 'usage: [--version] [-v] [--config=config-file-name] --execute="command-to-execute" jobslug'
+    print ' -v verbose'
+    print ' --version displays version number of this client and exits'
+    print ' --execute= must be specified to run a command. The command should be enclosed in quotes'
+    print ' --config= allows for specifying a configuration file. If not specified, looks for $HOME/.ucdc/ucdc.config and then /etc/ucdc/ucdc.config'
+    
 
 def main():
     try:

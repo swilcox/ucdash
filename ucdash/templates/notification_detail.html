@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block page_title %}
+    Job Notification Detail
+{% endblock %}
+
+{% block content %}
+    <div><span>Result:</span> {{ notification.result }}</div>
+    <div><span>Date/Time:</span> {{ notification.at }}</div>
+    <div><span>Duration:</span> {{ notification.duration }}ms</div>
+    <div><span>Log: </span><br/><pre>{{ notification.log }}</pre></div>
+{% endblock %}

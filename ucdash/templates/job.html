@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block page_title %}
+    {{ job.name }}
+{% endblock %}
+
+{% block content %}
+    <div><span>Name:</span> {{ job.name }}</div>
+    <div><span>Slug:</span> {{ job.slug }}</div>
+    <div><span>Description:</span> {{ job.description }}</div>
+    <div>...Show List of 'Recent' notifications? pagination?</div>
+{% endblock %}
