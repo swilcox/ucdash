@@ -30,8 +30,16 @@ class Notification(models.Model):
     duration = models.IntegerField(null=True,blank=True)
     log = models.TextField(blank=True)
 
+    class Meta:
+        get_latest_by = 'at'
+        ordering = ['-at']
+
     def __unicode__(self):
         return 'result: %s for job: %s' % (str(self.result), str(self.job))
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('jobs.views.notification_detail', (self.id,), {})
 
 
 class NotificationExtra(models.Model):
@@ -42,3 +50,17 @@ class NotificationExtra(models.Model):
     def __unicode__(self):
         return self.field_name + ': ' + self.field_value[:100]
 
+
+class MetricDefinition(models.Model):
+    name = models.CharField(max_length=50,db_index=True)
+    value_name = models.CharField(max_length=50,db_index=True)
+    required = models.BooleanField()
+    client_supplied = models.BooleanField()
+    regex = models.TextField(blank=True)
+
+
+class MetricValue(models.Model):
+    notification = models.ForeignKey(Notification,related_name='metrics')
+    metric = models.ForeignKey(MetricDefinition)
+    value = models.TextField(blank=True)
+    
