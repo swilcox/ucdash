@@ -7,10 +7,10 @@ from datetime import datetime
 class JobNotificationHandler(BaseHandler):
     allowed_methods = ('POST',)
     model = Notification
-
     
     def create(self, request, job_slug=None):
-        print request
+        print "here..."
+        print request.data
         if request.content_type and job_slug:
             try:
                 j = Job.objects.get(slug=job_slug)
@@ -21,6 +21,13 @@ class JobNotificationHandler(BaseHandler):
             if 'duration' in request.data:
                 em.duration = request.data['duration']
             em.save()
+            if 'extra' in request.data:
+                for e in request.data['extra']:
+                    ex = NotificationExtra(notification=em)
+                    ex.field_name = e
+                    ex.field_value = str(request.data['extra'][e])
+                    ex.save()
+
             return rc.CREATED
         else:
             return rc.BAD_REQUEST

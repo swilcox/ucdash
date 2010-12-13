@@ -1,1 +1,2 @@
-{"duration": 199, "log": "This is a test of \\nmulti-line logs\\nthat could have all sorts of bizarro data in them\\n", "result": 0}
+{"duration": 199, "log": "This is a test of \nmulti-line logs\nthat could have all sorts of bizarro data in them\n", "result": 0, "extra": {"value_extra_1": 2, "value_extra_2": 4}}
+

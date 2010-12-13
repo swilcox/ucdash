@@ -31,6 +31,7 @@ class UCTask(object):
         duration_timedelta = self.endtime - self.starttime
         duration_ms = (duration_timedelta.microseconds / 1000) + (duration_timedelta.seconds * 1000)
         self.results = {'jobname':self.jobname,'result': self.p.returncode, 'log': out, 'duration': duration_ms}
+        self.results['extra'] = {'extra_value_1': 2, 'extra_value_2': 4}
         if self.verbose:
             print "job name: " + self.jobname
             print "return code: " + str(self.p.returncode)
@@ -49,7 +50,7 @@ class UCTask(object):
         conn.request("POST","/api/notify/%s/" % self.jobname,body=json.dumps(self.results),headers={'Content-Type':'application/json'})
         response = conn.getresponse()
         if self.verbose:
-            print response
+            print response.read()
 
 
 def usage():

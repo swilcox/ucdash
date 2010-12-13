@@ -4,8 +4,14 @@
 {% endblock %}
 
 {% block content %}
-    <div><span>Result:</span> {{ notification.result }}</div>
-    <div><span>Date/Time:</span> {{ notification.at }}</div>
-    <div><span>Duration:</span> {{ notification.duration }}ms</div>
-    <div><span>Log: </span><br/><pre>{{ notification.log }}</pre></div>
+    <table>
+       <thead><tr><td>field</td><td>value</td></tr></thead>
+       <tr></tr><td>Result:</td><td> {{ notification.result }}</td></tr>
+       <tr></tr><td>Date/Time:</td><td> {{ notification.at }}</td></tr>
+       <tr></tr><td>Duration:</td><td> {{ notification.duration }}ms</td></tr>
+       <tr></tr><td>Log:</td><td><pre>{{ notification.log }}</pre></td></tr>
+            {% for e in notification.extra_info.all %}
+            <tr><td>{{ e.field_name }}</td><td>{{ e.field_value }}</td></tr>           
+            {% endfor %}
+    </table>
 {% endblock %}

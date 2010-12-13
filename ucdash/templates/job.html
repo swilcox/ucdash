@@ -1,4 +1,66 @@
 {% extends "base.html" %}
+{% block extra_head %}
+
+<script src="{{ MEDIA_URL }}media/js/adapters/mootools-adapter.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}/media/js/highcharts.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    {% for metric_name, metric in metrics.items %}
+var chart{{ forloop.counter }}; // globally available
+window.addEvent('domready', function() {
+      chart{{ forloop.counter }} = new Highcharts.Chart({
+         chart: {
+            renderTo: 'metric_{{ forloop.counter }}',
+         defaultSeriesType: 'line',
+         marginRight: 130,
+         marginBottom: 25
+      },
+      title: {
+         text: '{{ metric_name }}',
+         x: -20 //center
+      },
+      subtitle: {
+         text: 'job: {{ job.name }}',
+         x: -20
+      },
+      xAxis: {
+         categories: [{% for m in metric.events %}'{{ m }}',{% endfor %}]
+      },
+      yAxis: {
+         title: {
+            text: 'data (to-do: name this)'
+         },
+         plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+         }]
+      },
+      tooltip: {
+         formatter: function() {
+                   return '<b>'+ this.series.name +'</b><br/>'+
+               this.x +': '+ this.y +'';
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'right',
+         verticalAlign: 'top',
+         x: -10,
+         y: 100,
+         borderWidth: 0
+      },
+      series: [{
+         {% for mdata in metric.metric_data %}
+         name: '{{ mdata.field_name }}',
+         data: [{% for d in mdata.data %}{{ d }},{% endfor %}]
+         {% endfor %}
+      }]
+      });
+   });
+    {% endfor %}
+</script>
+{% endblock %}
 {% block page_title %}
     {{ job.name }}
 {% endblock %}
@@ -18,4 +80,10 @@
     {% endfor %}
     </table>
     </div>
+    {% for metric_name, metric in metrics.items %}
+    <div class="metric" id="metric_{{ forloop.counter }}">
+
+    </div>
+    {% endfor %}
+
 {% endblock %}

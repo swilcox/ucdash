@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'piston',
     'jobs',
+    'metrics',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
