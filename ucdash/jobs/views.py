@@ -32,7 +32,8 @@ def job(request,job_slug=None):
                 if fn == 'duration':
                     temp_data['data'] = [n.duration for n in notifications]
                 elif not jm.client_supplied and len(jm.regex):
-                    temp_data['data'] = [re.search(jm.regex,n.log).groupdict().get(fn,None) for n in notifications]
+                    print jm.regex.replace('\\n','\n')
+                    temp_data['data'] = [re.search(jm.regex.replace('\\n','\n'),n.log).groupdict().get(fn,None) for n in notifications]
                 metrics_data[jm.name]['metric_data'].append(temp_data)
                                     
 
