@@ -87,3 +87,29 @@ td.icon {
     border-bottom: 10px;
 }
 
+.box {
+    background: #D4D2CB;
+}
+
+.box h2 {
+    background: #272822;
+}
+
+.box h2 a, .box h2 a.visible {
+    background-color: #272822;
+}
+
+tbody th, tbody td {
+    background-color: #EBE5DF;
+    border-color: #4E5347;
+}
+
+thead th {
+    background: #837F69;
+    border-bottom: 2px solid #4E5347;
+    padding: 0.4em 1em 0.2em;
+}
+
+table {
+    border-color: #4E5347;
+}
