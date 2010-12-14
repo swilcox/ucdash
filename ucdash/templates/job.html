@@ -28,7 +28,7 @@ window.addEvent('domready', function() {
       },
       yAxis: {
          title: {
-            text: 'data (to-do: name this)'
+            text: '{{ metric.data_label }}'
          },
          plotLines: [{
             value: 0,
@@ -50,12 +50,14 @@ window.addEvent('domready', function() {
          y: 100,
          borderWidth: 0
       },
-      series: [{
-         {% for mdata in metric.metric_data %}
+      series: [
+        {% for mdata in metric.metric_data %}
+         {
          name: '{{ mdata.field_name }}',
          data: [{% for d in mdata.data %}{{ d }},{% endfor %}]
-         {% endfor %}
-      }]
+         },
+        {% endfor %}
+        ]
       });
    });
     {% endfor %}

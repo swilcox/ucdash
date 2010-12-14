@@ -26,18 +26,25 @@ def job(request,job_slug=None):
         for jm in job_metrics:
             notifications = job.notifications.all()[:jm.max_display_entries].reverse()
             metrics_data[jm.name] = {'events':[n.at for n in notifications]}
+            metrics_data[jm.name]['data_label'] = jm.data_label
             metrics_data[jm.name]['metric_data'] = []
             for fn in jm.field_names.split(','):
                 temp_data = {'field_name':fn}
                 if fn == 'duration':
                     temp_data['data'] = [n.duration for n in notifications]
                 elif not jm.client_supplied and len(jm.regex):
-                    print jm.regex.replace('\\n','\n')
-                    temp_data['data'] = [re.search(jm.regex.replace('\\n','\n'),n.log).groupdict().get(fn,None) for n in notifications]
+                    temp_data['data'] = []
+                    for n in notifications:
+                        temp_data['data'].append(re.search(jm.regex,n.log,re.DOTALL+re.MULTILINE).groupdict().get(fn,None))
+                elif jm.client_supplied:
+                    temp_data['data'] = []
+                    for n in notifications:
+                        try:
+                            temp_data['data'].append(n.extra_info.get(field_name=fn).field_value)
+                        except:
+                            temp_data['data'].append('Null')
                 metrics_data[jm.name]['metric_data'].append(temp_data)
-                                    
 
-        print metrics_data
 
         return render_to_response('job.html',{'job':job,'metrics':metrics_data},context_instance=RequestContext(request))
 
