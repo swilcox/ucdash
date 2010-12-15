@@ -1,15 +1,18 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from models import Job, JobGroup, Notification
+from django.contrib.auth.decorators import login_required
 import re
 
 
+@login_required
 def dashboard(request):
     job_groups = JobGroup.objects.all()
     jobs = Job.objects.all()
     return render_to_response('dashboard.html',{'jobs':jobs,'job_groups':job_groups},context_instance=RequestContext(request))
 
 
+@login_required
 def notification_detail(request,notification_id=None):
     if notification_id:
         notification = Notification.objects.get(id=notification_id)
@@ -18,7 +21,9 @@ def notification_detail(request,notification_id=None):
     return render_to_response('notification_detail.html',{'notification':notification},context_instance=RequestContext(request))
 
 
+@login_required
 def job(request,job_slug=None):
+    print request.META
     if job_slug:
         job = Job.objects.get(slug=job_slug)
         job_metrics = job.metrics.all()
@@ -46,9 +51,10 @@ def job(request,job_slug=None):
                 metrics_data[jm.name]['metric_data'].append(temp_data)
 
 
-        return render_to_response('job.html',{'job':job,'metrics':metrics_data},context_instance=RequestContext(request))
+        return render_to_response('job.html',{'job':job,'metrics':metrics_data,'host':request.get_host()},context_instance=RequestContext(request))
 
 
+@login_required
 def job_group(request,job_group_slug=None):
     if job_group_slug:
         job_group = JobGroup.objects.get(slug=job_group_slug)

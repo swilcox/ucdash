@@ -73,7 +73,7 @@ window.addEvent('domready', function() {
         <thead><tr><th>field</th><th>value</th></tr></thead>
         <tbody>
             <tr><td>Name</td><td>{{ job.name }}</td></tr>
-            <tr><td>Slug</td><td>{{ job.slug }}</td></tr>
+            <tr><td>API URL</td><td>http://{{ host }}{% url api:job_notify job_slug=job.slug %}</td></tr>
             <tr><td>Description</td><td>{{ job.description }}</td></tr>
         </tbody>
     </table>

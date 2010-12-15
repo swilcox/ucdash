@@ -7,7 +7,9 @@ urlpatterns = patterns('',
       (r'^$', 'jobs.views.dashboard'),
       (r'^notification-detail/(?P<notification_id>.*)/$','jobs.views.notification_detail'),
       (r'^job/(?P<job_slug>.*)/$','jobs.views.job'),
-      (r'^api/', include('ucdash.api.urls')),
+      (r'^api/', include('ucdash.api.urls',namespace='api')),
+      url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+
     # Example:
     # (r'^ucdash/', include('ucdash.foo.urls')),
 
