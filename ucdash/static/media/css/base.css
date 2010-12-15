@@ -20,6 +20,18 @@ h1#branding-h1 {
 
 }
 
+
+/* log view
+------------------------------------------------ */
+.log_view {
+    background: black;
+    color: #D4D2CB;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+
 /* navigation
 ------------------------------------------------ */
 ul.nav {

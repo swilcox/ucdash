@@ -68,20 +68,28 @@ window.addEvent('domready', function() {
 {% endblock %}
 
 {% block content %}
-    <div><span>Name:</span> {{ job.name }}</div>
-    <div><span>Slug:</span> {{ job.slug }}</div>
-    <div><span>Description:</span> {{ job.description }}</div>
-    <div class="notifications">
+    <div class="grid_4">
     <table>
-        <tr><th>at</th><th>result</th><th>log</th></tr>
+        <thead><tr><th>field</th><th>value</th></tr></thead>
+        <tbody>
+            <tr><td>Name</td><td>{{ job.name }}</td></tr>
+            <tr><td>Slug</td><td>{{ job.slug }}</td></tr>
+            <tr><td>Description</td><td>{{ job.description }}</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="notifications grid_12">
+    <table>
+        <thead><th>at</th><th>duration (ms)</th><th>result</th><th width="50%">log</th></thead>
 
     {% for n in job.notifications.all|slice:":5" %}
             <tr>
-                <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.result }}</td><td><pre>{{ n.log|slice:":200" }}</pre></td>
+                <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.duration }}</td><td>{{ n.result }}</td><td><pre>{{ n.log|slice:":200" }}</pre></td>
             </tr>
     {% endfor %}
     </table>
     </div>
+    <div class="clear"></div>
     {% for metric_name, metric in metrics.items %}
     <div class="metric" id="metric_{{ forloop.counter }}">
 
