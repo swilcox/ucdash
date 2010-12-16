@@ -64,16 +64,16 @@ class UCTask(object):
         if os.path.exists(self.config):
             config = ConfigParser()
             config.read(self.config)
-            server_config = config.items('server')
-            if 'host' in server_config:
-                self.host = server_config['host']
-            if 'port' in server_config:
-                self.port = int(server_config['port'])
-            if 'url' in server_config:
-                self.url = server_config['url']
+            if config.has_option('server','host'):
+                self.host = config.get('server','host')
+            if config.has_option('server','port'):
+                self.port = config.get('server','port')
+            if config.has_option('server','url'):
+                self.url = config.get('server','url')
         else:
             #BAD!!!!
-            pass
+            #todo: raise and exception back up the line...
+            print "config file ERROR"
             #EVIL!!!!
         
     def report(self):
