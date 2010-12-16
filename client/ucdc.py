@@ -6,6 +6,7 @@ import shlex
 import simplejson as json
 from datetime import datetime
 import httplib
+from ConfigParser import ConfigParser
 
 VERSION = "0.5"
 
@@ -54,11 +55,26 @@ class UCTask(object):
         self.host = 'localhost'
         self.url = '/api/notify/%s/' % self.jobname
         self.port = 8000
-        self.http_method = 'POST'
-        
+        self.http_method = 'POST'        
         if self.config is None or self.config=='':
-            self.config = '.ucdc/ucdc.config'
-            #self.config = '/etc/ucdc/ucdc.config'
+            if os.name.lower() == 'posix':
+                self.config = os.path.join(os.environ['HOME'],'.ucdc','ucdc.config')
+            else:
+                self.config = os.path.join(os.environ['USERPROFILE'],'ucdc.ini')
+        if os.path.exists(self.config):
+            config = ConfigParser()
+            config.read(self.config)
+            server_config = config.items('server')
+            if 'host' in server_config:
+                self.host = server_config['host']
+            if 'port' in server_config:
+                self.port = int(server_config['port'])
+            if 'url' in server_config:
+                self.url = server_config['url']
+        else:
+            #BAD!!!!
+            pass
+            #EVIL!!!!
         
     def report(self):
         if self.verbose:
