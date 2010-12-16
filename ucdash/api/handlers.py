@@ -3,14 +3,14 @@ from piston.utils import rc
 from piston.utils import require_extended
 from jobs.models import Notification, NotificationExtra, Job
 from datetime import datetime
+import socket
 
 class JobNotificationHandler(BaseHandler):
     allowed_methods = ('POST',)
     model = Notification
     
     def create(self, request, job_slug=None):
-        print "here..."
-        print request.data
+
         if request.content_type and job_slug:
             try:
                 j = Job.objects.get(slug=job_slug)
@@ -20,6 +20,12 @@ class JobNotificationHandler(BaseHandler):
             em = self.model(result=request.data['result'], log=request.data['log'], job=j)
             if 'duration' in request.data:
                 em.duration = request.data['duration']
+            if 'remote_host' not in request.data:
+                try:
+                    em.remote_host = socket.gethostbyaddr(request.META.get('REMOTE_ADDR',''))[0]
+                except:
+                    em.remote_host = ''
+            em.remote_ip = request.META.get('REMOTE_ADDR','')
             em.save()
             if 'extra' in request.data:
                 for e in request.data['extra']:

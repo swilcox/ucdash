@@ -29,6 +29,8 @@ class Notification(models.Model):
     at = models.DateTimeField(auto_now_add=True,null=True,blank=True,db_index=True)
     duration = models.IntegerField(null=True,blank=True)
     log = models.TextField(blank=True)
+    remote_ip = models.IPAddressField(blank=True,db_index=True)
+    remote_host = models.CharField(max_length=255,blank=True,db_index=True)
 
     class Meta:
         get_latest_by = 'at'
@@ -36,6 +38,10 @@ class Notification(models.Model):
 
     def __unicode__(self):
         return 'result: %s for job: %s' % (str(self.result), str(self.job))
+
+    def save(self, *args, **kwargs):
+        #override save() just in case we need to do some tweaking as part of saving...
+        super(Notification, self).save(*args, **kwargs) # Call the "real" save() method.
 
     @models.permalink
     def get_absolute_url(self):

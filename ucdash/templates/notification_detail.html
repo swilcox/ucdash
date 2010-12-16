@@ -6,8 +6,10 @@
 {% block content %}
     <table>
        <thead><tr><th>field</th><th>value</th></tr></thead>
-       <tr></tr><td>Result:</td><td> {{ notification.result }}</td></tr>
-       <tr></tr><td>Date/Time:</td><td> {{ notification.at }}</td></tr>
+       <tr><td>Result:</td><td> {{ notification.result }}</td></tr>
+       <tr><td>Date/Time:</td><td> {{ notification.at }}</td></tr>
+       <tr><td>Remote Host:</td><td>{{ notification.remote_host }}</td></tr>
+       <tr><td>Remote IP:</td><td>{{ notification.remote_ip }}</td></tr>
        <tr></tr><td>Duration:</td><td> {{ notification.duration }}ms</td></tr>
             {% for e in notification.extra_info.all %}
             <tr><td>{{ e.field_name }}</td><td>{{ e.field_value }}</td></tr>           
