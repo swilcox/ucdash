@@ -6,8 +6,6 @@ CHART_TYPES = [('line','Line'),]
 class MetricDefinition(models.Model):
     name = models.CharField(max_length=50,db_index=True)
     field_names = models.CharField(max_length=50,db_index=True,help_text='comma-delimited list of field names')
-    required = models.BooleanField()
-    client_supplied = models.BooleanField()
     regex = models.TextField(blank=True,help_text='regular expression to find (by name) the values for the fields')
     max_display_entries = models.IntegerField()
     chart_type = models.CharField(max_length=100,choices=CHART_TYPES,default='line')

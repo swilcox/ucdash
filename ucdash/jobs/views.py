@@ -34,22 +34,27 @@ def job(request,job_slug=None):
             metrics_data[jm.name]['data_label'] = jm.data_label
             metrics_data[jm.name]['metric_data'] = []
             for fn in jm.field_names.split(','):
-                temp_data = {'field_name':fn}
-                if fn == 'duration':
+                fname = fn.strip()
+                temp_data = {'field_name':fname}
+                if fname == 'duration':
                     temp_data['data'] = [n.duration for n in notifications]
-                elif not jm.client_supplied and len(jm.regex):
-                    temp_data['data'] = []
-                    for n in notifications:
-                        temp_data['data'].append(re.search(jm.regex,n.log,re.DOTALL+re.MULTILINE).groupdict().get(fn,None))
-                elif jm.client_supplied:
+                elif len(jm.regex):
                     temp_data['data'] = []
                     for n in notifications:
                         try:
-                            temp_data['data'].append(n.extra_info.get(field_name=fn).field_value)
+                            data_value = re.search(jm.regex,n.log,re.DOTALL+re.MULTILINE).groupdict().get(fname,'null')
                         except:
-                            temp_data['data'].append('Null')
+                            #todo: log the exception
+                            data_value = 'null'
+                        temp_data['data'].append(data_value)
+                else:
+                    temp_data['data'] = []
+                    for n in notifications:
+                        try:
+                            temp_data['data'].append(n.extra_info.get(field_name=fname).field_value)
+                        except:
+                            temp_data['data'].append('null')
                 metrics_data[jm.name]['metric_data'].append(temp_data)
-
 
         return render_to_response('job.html',{'job':job,'metrics':metrics_data,'host':request.get_host()},context_instance=RequestContext(request))
 

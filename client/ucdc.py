@@ -3,7 +3,10 @@ import os
 import getopt
 import subprocess
 import shlex
-import simplejson as json
+try:
+    import simplejson as json
+except:
+    import json
 from datetime import datetime
 import httplib
 from ConfigParser import ConfigParser

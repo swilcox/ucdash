@@ -2,7 +2,6 @@ from piston.handler import BaseHandler
 from piston.utils import rc
 from piston.utils import require_extended
 from jobs.models import Notification, NotificationExtra, Job
-from datetime import datetime
 import socket
 
 class JobNotificationHandler(BaseHandler):
