@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block page_title %}
+    {{ job_group.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="job_list grid_16">
+    <table>
+        <thead><tr><th>Job Name</th><th>Latest Date/Time</th><th>Duration (ms)</th><th>Result</th></tr></thead>
+        <tbody>
+        {% for j in job_group.jobs.all %}
+        <tr><td><a href="{{ j.get_absolute_url }}">{{ j.name }}</a></td><td>{{ j.notifications.latest.at }}</td><td>{{ j.notifications.latest.duration }}</td><td>{{ j.notifications.latest.result }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div class="clear"></div>
+    {% for metric_name, metric in metrics.items %}
+    <div class="metric" id="metric_{{ forloop.counter }}">
+
+    </div>
+    {% endfor %}
+
+{% endblock %}
