@@ -29,7 +29,9 @@ def job(request,job_slug=None):
         job_metrics = job.metrics.all()
         metrics_data = {}
         for jm in job_metrics:
-            notifications = job.notifications.all()[:jm.max_display_entries].reverse()
+            notifications = job.notifications.all()[:jm.max_display_entries]
+            notifications = [n for n in notifications]
+            notifications.reverse()
             metrics_data[jm.name] = {'events':[n.at for n in notifications]}
             metrics_data[jm.name]['data_label'] = jm.data_label
             metrics_data[jm.name]['metric_data'] = []

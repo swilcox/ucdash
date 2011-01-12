@@ -6,3 +6,5 @@ dev.db
 *~
 .idea
 local_settings.py
+*.komodoproject
+*.komodotools
