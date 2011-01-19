@@ -101,8 +101,8 @@ INSTALLED_APPS = (
     'jobs',
     'metrics',
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
+    'sentry.cleint',            #remove if you don't use django-sentry
 )
 
 
