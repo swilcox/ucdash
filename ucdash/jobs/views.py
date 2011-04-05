@@ -23,7 +23,7 @@ def notification_detail(request,notification_id=None):
 
 @login_required
 def job(request,job_slug=None):
-    print request.META
+    #print request.META
     if job_slug:
         job = Job.objects.get(slug=job_slug)
         job_metrics = job.metrics.all()

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+<script src="{{ MEDIA_URL }}media/js/adapters/mootools-adapter.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}/media/js/highcharts.js" type="text/javascript"></script>
+
+{% block page_title %}
+    {{ job.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="grid_4">
+    <table>
+        <thead><tr><th>field</th><th>value</th></tr></thead>
+        <tbody>
+            <tr><td>Name</td><td>{{ job.name }}</td></tr>
+            <tr><td>API URL</td><td>http://{{ host }}{% url api:job_notify job_slug=job.slug %}</td></tr>
+            <tr><td>Description</td><td>{{ job.description }}</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="notifications grid_12">
+    <table>
+        <thead><th>at</th><th>duration (ms)</th><th>result</th><th width="50%">store</th></thead>
+
+    {% for n in notifications %}
+            <tr>
+                <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.duration }}</td><td>{{ n.result }}</td><td><pre>{{ n.store }}</pre></td>
+            </tr>
+    {% endfor %}
+    </table>
+    </div>
+    <div class="clear"></div>
+    {% for metric_name, metric in metrics.items %}
+    <div class="metric" id="metric_{{ forloop.counter }}">
+
+    </div>
+    {% endfor %}
+
+{% endblock %}

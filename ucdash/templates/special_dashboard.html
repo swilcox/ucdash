@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block page_title %}
+    Overview
+{% endblock %}
+
+{% block content %}
+    {% for jg, jobs in job_groups.items %}
+    <div class="grid_16">
+        <div class="box">
+              <h2>{{ jg }}</h2>
+              <div class="block" id="{{ jg }}-details">
+                  <div class="job_group_description">{{ jg }}</div>
+                  <table class="job_listings">
+                  <thead><tr><th>job</th><th>date/time</th><th>status</th></tr></thead>
+                  <tbody>
+                  {%  for j in jobs %}
+                      <tr><td><a href="job/{{ j.slug }}/">{{ j.name }}</a></td><td>{{ j.notifications.latest.at }}</td><td>today: {{ j.todays_notifications.count }}</td></tr>
+                  {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+        </div>
+    </div>
+    {% cycle '' '<div class="clear"></div>' %}
+    {% endfor %}
+
+{% endblock %}

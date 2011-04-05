@@ -5,6 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
       (r'^$', 'jobs.views.dashboard'),
+      (r'^special/', include('specialjobs.urls',namespace='specialjobs')),
       (r'^notification-detail/(?P<notification_id>.*)/$','jobs.views.notification_detail'),
       (r'^job/(?P<job_slug>.*)/$','jobs.views.job'),
       (r'^job-group/(?P<job_group_slug>.*)/$','jobs.views.job_group'),
