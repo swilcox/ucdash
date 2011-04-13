@@ -80,8 +80,9 @@ window.addEvent('domready', function() {
     </div>
     <div class="notifications grid_12">
     <table>
-        <thead><th>at</th><th>duration (ms)</th><th>result</th><th width="50%">log</th></thead>
+        <thead><th>at</th><th>duration (ms)</th><th>result</th>{% for edf in job.extra_display_fields %}<th>{{ edf }}</th>{% endfor %}</thead>
 
+    <!--right here is where we need to change to getting our notifications from the view -->
     {% for n in job.notifications.all|slice:":5" %}
             <tr>
                 <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.duration }}</td><td>{{ n.result }}</td><td><pre>{{ n.log|slice:":200" }}</pre></td>

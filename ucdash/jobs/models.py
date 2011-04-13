@@ -1,6 +1,17 @@
 from django.db import models
 
 
+JOB_FREQUENCY = (
+  ('DAILY','Daily'),
+  ('WEEKLY','Weekly'),
+  ('BIWEEKLY','Bi-Weekly'),
+  ('MONTHLY','Monthly'),
+  ('QUATERLY','Quaterly'),
+  ('ANNUALLY','Annually'),
+  ('SPORADIC','Sporadic'),
+  )
+
+
 class Job(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField()
@@ -12,6 +23,17 @@ class Job(models.Model):
 
     def __unicode__(self):
         return str(self.name)
+
+    
+class JobConfig(models.Model):
+    job = models.OneToOneField(Job,related_name="config")
+    frequency = models.CharField(max_length=10,choices=JOB_FREQUENCY,blank=True,help_text="how often the job is run")
+    multipart_field = models.CharField(max_length=50,blank=True,help_text="extra field to use when determining which part of a multi-part job is being reported")
+    multipart_names = models.TextField(blank=True,help_text="comma-delimited list of names for each part of the job")
+    display_extra_fields = models.TextField(blank=True,help_text="comma-delimited list of extra fields to display in dashboard views")
+
+    def __unicode__(self):
+        return str(self.job) + " (config)"
 
 
 class JobGroup(models.Model):

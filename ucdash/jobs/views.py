@@ -27,6 +27,12 @@ def job(request,job_slug=None):
     if job_slug:
         job = Job.objects.get(slug=job_slug)
         job_metrics = job.metrics.all()
+        try:
+            job.extra_display_fields = [df.strip() for df in job.config.display_extra_fields.split(',')]
+        except Exception, ex:
+            print str(ex)
+            job.extra_display_fields = ['log',]
+            
         metrics_data = {}
         for jm in job_metrics:
             notifications = job.notifications.all()[:jm.max_display_entries]

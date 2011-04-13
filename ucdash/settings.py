@@ -102,7 +102,6 @@ INSTALLED_APPS = (
     'metrics',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'sentry.cleint',            #remove if you don't use django-sentry
 )
 
 
