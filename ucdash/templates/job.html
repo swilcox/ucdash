@@ -78,14 +78,21 @@ window.addEvent('domready', function() {
         </tbody>
     </table>
     </div>
+    <div class="summary">
+    Summary Info goes here:
+    Total Sub-Jobs: {{ summary.total_parts }} <br/>
+    Correct Jobs: {{ summary.good_results }} <br/>
+    Errored Jobs: {{ summary.bad_results }} <br/>
+    Missing Jobs: {{ summary.missing_results }} <br/>
+    </div>
     <div class="notifications grid_12">
     <table>
         <thead><th>at</th><th>duration (ms)</th><th>result</th>{% for edf in job.extra_display_fields %}<th>{{ edf }}</th>{% endfor %}</thead>
 
     <!--right here is where we need to change to getting our notifications from the view -->
-    {% for n in job.notifications.all|slice:":5" %}
+    {% for n in notifications %}
             <tr>
-                <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.duration }}</td><td>{{ n.result }}</td><td><pre>{{ n.log|slice:":200" }}</pre></td>
+                <td><a href="{{ n.get_absolute_url }}">{{ n.at|date:"Y-m-d h:i:s A" }}</a></td><td>{{ n.duration }}</td><td>{{ n.result }}</td>{% for ef in n.extra_fields %}<td>{{ ef|safe }}</td>{% endfor %}
             </tr>
     {% endfor %}
     </table>
