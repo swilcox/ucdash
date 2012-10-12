@@ -29,16 +29,10 @@ def job(request,job_slug=None,start_date=None,end_date=None,latest_count=10):
         summary = None
         job = Job.objects.get(slug=job_slug)
         job_metrics = job.metrics.all()
-        try:
-            job.extra_display_fields = [df.strip() for df in job.config.display_extra_fields.split(',')]
-            if len(job.config.multipart_field):
-                if start_date is None and end_date is None:
-                    start_date = date.today()
-                    end_date = date.fromordinal(date.today().toordinal() + 1)
-
-        except Exception, ex:
-            print str(ex)
+        if job.display_extra_fields == '':
             job.extra_display_fields = ['log',]
+        else:
+            job.extra_display_fields = [ef.strip() for ef in job.display_extra_fields.split(',')]
 
         #this is where we decide how many and which notifications to display!!!!
         if start_date is not None and end_date is not None:
@@ -51,10 +45,10 @@ def job(request,job_slug=None,start_date=None,end_date=None,latest_count=10):
         multipart_field = None
         multipart_values = {}
         try:
-            if len(job.config.multipart_field):
+            if job.multipart_flag():
                 multipart = True
-                multipart_field = job.config.multipart_field
-                for v in job.config.multipart_names.split(','):
+                multipart_field = job.multipart_field
+                for v in job.multipart_names.split(','):
                     multipart_values[v.strip()] = None
         except Exception, ex:
             pass

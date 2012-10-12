@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
       (r'^$', 'jobs.views.dashboard'),
       (r'^notification-detail/(?P<notification_id>.*)/$','jobs.views.notification_detail'),
+      (r'^job/(?P<job_slug>.*)/(?P<start_date>.*)/(?P<end_date>.*)/$','jobs.views.job'),
       (r'^job/(?P<job_slug>.*)/$','jobs.views.job'),
       (r'^job-group/(?P<job_group_slug>.*)/$','jobs.views.job_group'),
       (r'^api/', include('ucdash.api.urls',namespace='api')),

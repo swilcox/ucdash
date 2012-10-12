@@ -68,7 +68,7 @@ window.addEvent('domready', function() {
 {% endblock %}
 
 {% block content %}
-    <div class="grid_4">
+    <div class="grid_16">
     <table>
         <thead><tr><th>field</th><th>value</th></tr></thead>
         <tbody>
@@ -78,14 +78,15 @@ window.addEvent('domready', function() {
         </tbody>
     </table>
     </div>
-    <div class="summary">
+    <div class="clear"></div>
+    <div class="summary grid_16">
     Summary Info goes here:
     Total Sub-Jobs: {{ summary.total_parts }} <br/>
     Correct Jobs: {{ summary.good_results }} <br/>
     Errored Jobs: {{ summary.bad_results }} <br/>
     Missing Jobs: {{ summary.missing_results }} <br/>
     </div>
-    <div class="notifications grid_12">
+    <div class="notifications grid_16">
     <table>
         <thead><th>at</th><th>duration (ms)</th><th>result</th>{% for edf in job.extra_display_fields %}<th>{{ edf }}</th>{% endfor %}</thead>
 
